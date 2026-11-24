@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ornamental Fish Export Catalog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#f3f6f8;--surface:#fff;--ink:#14202b;--muted:#5d6b78;--line:#dbe2e8;--accent:#1d4ed8;--accent-soft:#e6edfd;--on-accent:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#0e151b;--surface:#16212a;--ink:#e8eef3;--muted:#93a2af;--line:#26343f}}
+*{box-sizing:border-box}
+.msg{padding:40px 0;color:var(--muted);text-align:center}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif;padding-bottom:90px}
+header{padding:28px 20px 8px;max-width:1200px;margin:auto}
+h1{font:700 clamp(26px,5vw,40px)/1.1 Fraunces,Georgia,serif;margin:0 0 6px}
+header p{margin:0;color:var(--muted)}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:16px 20px;max-width:1200px;margin:auto;position:sticky;top:0;background:var(--bg);z-index:5}
+.tab{flex:none;border:1.5px solid var(--c);color:var(--ink);background:var(--surface);border-radius:999px;padding:8px 14px;cursor:pointer;font:500 14px Inter,sans-serif;display:flex;gap:8px;align-items:center}
+.tab i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.tab[aria-pressed=true]{background:var(--c);color:var(--on)}
+.tab[aria-pressed=true] i{background:var(--on)}
+.tab small{opacity:.7}
+main{max-width:1200px;margin:auto;padding:0 20px}
+.lot{margin:8px 0 36px;--c:var(--accent)}
+.lot-head{border-left:6px solid var(--c);padding:6px 0 6px 14px;margin:12px 0 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.lot-head h2{font:700 24px Fraunces,Georgia,serif;margin:0}
+.badge{background:var(--c);color:var(--on);border-radius:6px;padding:2px 9px;font-weight:600;font-size:13px}
+.lot-head .n{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.card{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;border-top:4px solid var(--c)}
+.card.sel{border-color:var(--c);box-shadow:0 0 0 2px var(--c)}
+.ph{aspect-ratio:1;background:var(--bg);cursor:zoom-in;position:relative}
+.ph img,.ph video{width:100%;height:100%;object-fit:cover;display:block}
+.ph video{pointer-events:none;background:#000}
+.play{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:600;pointer-events:none}
+#lb video{width:100%;max-height:75vh;display:block;background:#000}
+.err{display:flex;height:100%;align-items:center;justify-content:center;text-align:center;padding:10px;font-size:12px;color:var(--muted);cursor:default}
+.meta{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;gap:6px}
+.code{font-weight:600;font-variant-numeric:tabular-nums}
+.btn{border:1.5px solid var(--c,var(--accent));background:transparent;color:var(--c,var(--accent));border-radius:8px;padding:5px 11px;font:600 13px Inter,sans-serif;cursor:pointer}
+.card.sel .btn,.btn.fill{background:var(--c,var(--accent));color:var(--on,#fff)}
+.btn.ghost{border-color:var(--line);color:var(--ink)}
+:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:10px;z-index:10}
+.bar b{font-size:16px}
+dialog{border:0;border-radius:14px;padding:0;background:var(--surface);color:var(--ink);width:min(560px,94vw);max-height:90vh}
+dialog::backdrop{background:rgba(0,0,0,.6)}
+.dlg{padding:20px;display:grid;gap:12px}
+.dlg h3{margin:0;font:700 20px Fraunces,serif}
+textarea,input,select{width:100%;font:14px Inter,sans-serif;padding:9px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+textarea{min-height:170px;font-family:ui-monospace,monospace}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1}
+.sum-lot{border-left:5px solid var(--c);padding-left:10px;margin:6px 0}
+#lb{width:min(94vw,900px);background:#000;color:#fff}
+#lb img{width:100%;max-height:75vh;object-fit:contain;display:block}
+.lbbar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;gap:8px}
+#toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:#111;color:#fff;padding:8px 16px;border-radius:8px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:30}
+#toast.on{opacity:1}
+</style>
+</head>
+<body>
+<header>
+  <h1>Ornamental Fish Export Catalog</h1>
+  <p>Tap a photo or video to open it. Press Select on the fish you like, then copy your order list and send it to us.</p>
+</header>
+<nav class="tabs" id="tabs" aria-label="Categories"></nav>
+<main id="main"><p class="msg">Loading catalog…</p></main>
+
+<div class="bar">
+  <span><b id="selCount">0</b> fish selected</span>
+  <span class="row" style="flex:none">
+    <button class="btn ghost" id="clearBtn">Clear</button>
+    <button class="btn fill" id="reviewBtn">View order list</button>
+  </span>
+</div>
+<div id="toast"></div>
+
+<dialog id="lb"><img id="lbImg" alt=""><video id="lbVid" controls playsinline hidden></video><div class="lbbar"><span id="lbCap"></span><span class="row" style="flex:none"><button class="btn fill" id="lbSel">Select</button><button class="btn ghost" style="color:#fff" id="lbClose">Close</button></span></div></dialog>
+
+<dialog id="order"><div class="dlg">
+  <h3>Your order list</h3>
+  <div id="sumBody"></div>
+  <textarea id="orderText" readonly aria-label="Order text"></textarea>
+  <div class="row"><button class="btn fill" id="copyOrder">Copy Order List</button><button class="btn ghost" id="clearBtn2">Clear all</button><button class="btn ghost" data-close>Close</button></div>
+</div></dialog>
+
+<script>
+/* ================= SETTINGS (ไม่ต้องแก้ก็ใช้ได้) =================
+   เว็บจะอ่านโฟลเดอร์ทั้งหมดใน Repo อัตโนมัติ: 1 โฟลเดอร์ = 1 หมวด
+   ชื่อหมวด = ชื่อโฟลเดอร์ รูป = ทุกไฟล์รูปในโฟลเดอร์นั้น                    */
+const GITHUB_REPO = "";   // เว้นว่างได้ถ้าใช้ที่อยู่ xxx.github.io/repo ; ถ้าใช้โดเมนของตัวเอง ใส่เช่น "myname/fish-catalog"
+const OVERRIDES = {       // (ไม่บังคับ) ตั้งชื่อสวยหรือสีเฉพาะบางโฟลเดอร์
+  // "M01": { title:"Betta Black Star", color:"#2563eb" },
+};
+const IGNORE_FOLDERS = ["node_modules","assets","docs"]; // โฟลเดอร์ที่ขึ้นต้นด้วย . หรือ _ ถูกข้ามอยู่แล้ว
+/* ================================================================== */
+
+const PALETTE=["#2563eb","#c2410c","#7e22ce","#0f766e","#be123c","#4d7c0f","#a16207","#0e7490","#4338ca","#9d174d"];
+const IMG=/\.(jpe?g|png|webp|gif|avif)$/i;
+const VID=/\.(mp4|webm|m4v|mov)$/i;
+const $=s=>document.querySelector(s);
+const nat=(a,b)=>a.localeCompare(b,undefined,{numeric:true,sensitivity:"base"});
+const code=n=>String(n); // รหัส = ชื่อไฟล์ (ไม่รวมนามสกุล)
+const hash=t=>{let h=0;for(const c of t)h=(h*31+c.charCodeAt(0))>>>0;return h};
+const sel=new Map(); // folder -> Set of codes
+let CATALOG=[], active="ALL";
+
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),1600)}
+function isSel(f,n){return sel.has(f)&&sel.get(f).has(n)}
+
+/* ---------- โหลดรายชื่อโฟลเดอร์/รูปจาก GitHub ---------- */
+function detectRepo(){
+  if(GITHUB_REPO)return GITHUB_REPO;
+  const h=location.hostname;
+  if(h.endsWith(".github.io")){
+    const owner=h.split(".")[0],seg=location.pathname.split("/").filter(Boolean)[0];
+    const repo=seg&&!/\.html?$/i.test(seg)?seg:owner+".github.io";
+    return owner+"/"+repo}
+  return null}
+async function fetchTree(repo){
+  const key="tree:"+repo;
+  try{const c=JSON.parse(sessionStorage.getItem(key)||"null");if(c&&Date.now()-c.t<60000)return c.d}catch(e){}
+  let lastErr;
+  for(const ref of ["HEAD","main","master"]){
+    try{
+      const r=await fetch(`https://api.github.com/repos/${repo}/git/trees/${ref}?recursive=1`);
+      if(r.status===403||r.status===429)throw new Error("RATE");
+      if(!r.ok){lastErr=new Error("HTTP "+r.status);continue}
+      const j=await r.json();
+      try{sessionStorage.setItem(key,JSON.stringify({t:Date.now(),d:j.tree}))}catch(e){}
+      return j.tree}
+    catch(e){if(e.message==="RATE")throw e;lastErr=e}}
+  throw lastErr||new Error("fetch failed")}
+function buildCatalog(tree){
+  const map={};
+  tree.forEach(t=>{
+    if(t.type!=="blob")return;
+    const p=t.path.split("/");
+    if(p.length!==2||!(IMG.test(p[1])||VID.test(p[1])))return;
+    const f=p[0];
+    if(/^[._]/.test(f)||IGNORE_FOLDERS.includes(f))return;
+    (map[f]=map[f]||[]).push(p[1])});
+  return Object.keys(map).sort(nat).map(f=>{
+    const o=OVERRIDES[f]||{};
+    const color=o.color||PALETTE[hash(f)%PALETTE.length];
+    const files=map[f].sort(nat);
+    const bases=files.map(f=>f.replace(/\.[^.]+$/,""));
+    const items=files.map((file,i)=>{
+      const dup=bases.filter(b=>b===bases[i]).length>1;
+      return {n:dup?file:bases[i],file,video:VID.test(file)}});
+    return {folder:f,title:o.title||f,color,items}})}
+
+/* ---------- แสดงผล ---------- */
+const showBadge=l=>l.title!==l.folder;
+const src=(l,it)=>encodeURI(`${l.folder}/${it.file}`);
+const lotBy=f=>CATALOG.find(l=>l.folder===f);
+function render(){
+  const tabs=$("#tabs");tabs.innerHTML="";
+  const mk=(key,label,color,on,count)=>{
+    const b=document.createElement("button");b.className="tab";b.setAttribute("aria-pressed",active===key);
+    b.style.setProperty("--c",color);b.style.setProperty("--on",on);
+    b.innerHTML=`<i></i>${label} <small>${count}</small>`;
+    b.onclick=()=>{active=key;render();scrollTo(0,0);try{const u=new URL(location.href);key==="ALL"?u.searchParams.delete("lot"):u.searchParams.set("lot",key);history.replaceState(null,"",u)}catch(e){}};
+    tabs.appendChild(b)};
+  mk("ALL","All","var(--ink)","var(--bg)",CATALOG.reduce((a,l)=>a+l.items.length,0));
+  CATALOG.forEach(l=>mk(l.folder,l.title,l.color,"#fff",l.items.length));
+  const main=$("#main");main.innerHTML="";
+  CATALOG.filter(l=>active==="ALL"||l.folder===active).forEach(l=>{
+    const sec=document.createElement("section");sec.className="lot";
+    sec.style.setProperty("--c",l.color);sec.style.setProperty("--on","#fff");
+    sec.innerHTML=`<div class="lot-head">${showBadge(l)?`<span class="badge">${l.folder}</span>`:""}<h2></h2><span class="n">${l.items.length} fish</span></div><div class="grid"></div>`;
+    sec.querySelector("h2").textContent=l.title;
+    const g=sec.querySelector(".grid");
+    l.items.forEach(it=>g.appendChild(card(l,it)));
+    main.appendChild(sec)});
+  updateBar();
+}
+const vidObs=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){const v=e.target;v.preload="metadata";v.src=v.dataset.src;vidObs.unobserve(v)}}),{rootMargin:"300px"});
+function card(l,it){
+  const n=it.n,c=document.createElement("div");c.className="card"+(isSel(l.folder,n)?" sel":"");
+  c.dataset.f=l.folder;c.dataset.n=n;c.style.setProperty("--c",l.color);
+  const ph=document.createElement("div");ph.className="ph";
+  if(it.video){
+    const v=document.createElement("video");v.muted=true;v.playsInline=true;v.preload="none";v.dataset.src=src(l,it)+"#t=0.1";
+    v.onerror=()=>{ph.innerHTML=`<div class="err">Video ${code(n)} unavailable</div>`;ph.style.cursor="default";ph.onclick=null};
+    const tag=document.createElement("span");tag.className="play";tag.textContent="▶ Video";
+    ph.append(v,tag);vidObs.observe(v);
+  }else{
+    const img=new Image();img.loading="lazy";img.alt=`${l.title} ${code(n)}`;img.src=src(l,it);
+    img.onerror=()=>{ph.innerHTML=`<div class="err">Photo ${code(n)} unavailable</div>`;ph.style.cursor="default";ph.onclick=null};
+    ph.appendChild(img);
+  }
+  ph.onclick=()=>openLb(l,it);
+  const m=document.createElement("div");m.className="meta";
+  m.innerHTML=`<span class="code">${code(n)}</span>`;
+  const b=document.createElement("button");b.className="btn";b.textContent=isSel(l.folder,n)?"Selected ✓":"Select";
+  b.setAttribute("aria-pressed",isSel(l.folder,n));
+  b.onclick=()=>{toggle(l.folder,n);const on=isSel(l.folder,n);c.classList.toggle("sel",on);b.textContent=on?"Selected ✓":"Select";b.setAttribute("aria-pressed",on)};
+  m.appendChild(b);c.append(ph,m);return c}
+function toggle(f,n){
+  if(!sel.has(f))sel.set(f,new Set());
+  const s=sel.get(f);s.has(n)?s.delete(n):s.add(n);
+  if(!s.size)sel.delete(f);updateBar()}
+function total(){let t=0;sel.forEach(s=>t+=s.size);return t}
+function updateBar(){$("#selCount").textContent=total()}
+function orderText(){
+  const lines=[];
+  CATALOG.forEach(l=>{if(sel.has(l.folder)){const ns=[...sel.get(l.folder)].sort(nat);lines.push(`${showBadge(l)?`${l.title} (${l.folder})`:l.title}: ${ns.map(code).join(", ")}`)}});
+  return lines.length?`Order inquiry — ${total()} fish\n\n${lines.join("\n")}`:""}
+function clearAll(){sel.clear();render();$("#order").close();toast("Selection cleared")}
+
+/* Lightbox */
+let lbCur=null;
+function openLb(l,it){lbCur={l,n:it.n};
+  const im=$("#lbImg"),vd=$("#lbVid");
+  if(it.video){im.hidden=true;vd.hidden=false;vd.src=src(l,it);vd.play().catch(()=>{})}
+  else{vd.hidden=true;im.hidden=false;im.src=src(l,it)}
+  $("#lbCap").textContent=`${l.title} ${code(it.n)}`;syncLb();$("#lb").showModal()}
+function syncLb(){const {l,n}=lbCur;const b=$("#lbSel");b.textContent=isSel(l.folder,n)?"Selected ✓":"Select";b.style.setProperty("--c",l.color)}
+$("#lbSel").onclick=()=>{toggle(lbCur.l.folder,lbCur.n);syncLb();
+  const c=document.querySelector(`.card[data-f="${CSS.escape(lbCur.l.folder)}"][data-n="${CSS.escape(String(lbCur.n))}"]`);
+  if(c){const on=isSel(lbCur.l.folder,lbCur.n);c.classList.toggle("sel",on);c.querySelector(".btn").textContent=on?"Selected ✓":"Select"}};
+$("#lbClose").onclick=()=>$("#lb").close();
+$("#lb").addEventListener("close",()=>{const v=$("#lbVid");v.pause();v.removeAttribute("src");v.load()});
+$("#lb").addEventListener("click",e=>{if(e.target.id==="lb")e.target.close()});
+
+/* Order dialog */
+$("#reviewBtn").onclick=()=>{
+  const body=$("#sumBody");body.innerHTML="";
+  if(!total())body.innerHTML="<p>No fish selected yet. Press Select on any photo.</p>";
+  CATALOG.forEach(l=>{if(sel.has(l.folder)){
+    const d=document.createElement("div");d.className="sum-lot";d.style.setProperty("--c",l.color);
+    const b=document.createElement("b");b.textContent=l.title;d.appendChild(b);
+    d.append(" ",document.createElement("br"),[...sel.get(l.folder)].sort(nat).map(code).join(", "));
+    body.appendChild(d)}});
+  $("#orderText").value=orderText();$("#order").showModal()};
+async function copy(t,msg){
+  try{await navigator.clipboard.writeText(t)}catch(e){const x=document.createElement("textarea");x.value=t;document.body.appendChild(x);x.select();document.execCommand("copy");x.remove()}
+  toast(msg)}
+$("#copyOrder").onclick=()=>total()?copy($("#orderText").value,"Order list copied"):toast("Nothing selected");
+$("#clearBtn").onclick=()=>total()&&confirm("Clear all selected fish?")&&clearAll();
+$("#clearBtn2").onclick=clearAll;
+document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>b.closest("dialog").close());
+
+/* ---------- เริ่มทำงาน ---------- */
+(async()=>{
+  const main=$("#main"),repo=detectRepo();
+  const fail=t=>{main.innerHTML=`<p class="msg">${t}</p>`};
+  if(!repo)return fail("Catalog can’t load here. Open it from your GitHub Pages address (username.github.io/repo), or set GITHUB_REPO in index.html.");
+  try{CATALOG=buildCatalog(await fetchTree(repo))}
+  catch(e){return fail(e.message==="RATE"?"GitHub is limiting requests right now. Please try again in a few minutes.":"Couldn’t read the catalog from GitHub. Check that the repository is public.")}
+  if(!CATALOG.length)return fail("No photo folders found yet. Add folders with images to the repository.");
+  const want=new URLSearchParams(location.search).get("lot");
+  const m=want&&CATALOG.find(l=>l.folder.toLowerCase()===want.toLowerCase());
+  if(m)active=m.folder;
+  render()})();
+</script>
+</body>
+</html>
