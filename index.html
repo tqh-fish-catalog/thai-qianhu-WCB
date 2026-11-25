@@ -3,9 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ornamental Fish Export Catalog</title>
+<title>Thai Qian Hu · Ornamental Fish Export Catalog</title>
+<meta name="description" content="Hand-selected ornamental fish from Thailand. Browse available stock, photos, and build your order list.">
+<!-- Open Graph (WhatsApp, LINE, Facebook) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Thai Qian Hu">
+<meta property="og:url" content="https://tqh-fish-catalog.github.io/thai-qianhu-GAC/">
+<meta property="og:title" content="Thai Qian Hu · Ornamental Fish Export Catalog">
+<meta property="og:description" content="Hand-selected ornamental fish from Thailand. Browse available stock, photos, and build your order list.">
+<meta property="og:image" content="https://tqh-fish-catalog.github.io/thai-qianhu-GAC/og-image-2.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Qian Hu Thailand logo and Ornamental Fish Export Catalog">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Thai Qian Hu · Ornamental Fish Export Catalog">
+<meta name="twitter:description" content="Hand-selected ornamental fish from Thailand. Browse available stock, photos, and build your order list.">
+<meta name="twitter:image" content="https://tqh-fish-catalog.github.io/thai-qianhu-GAC/og-image-2.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Fraunces:wght@500;700&family=Inter:wght@400;500;600&display=swap">
 <style>
 :root{--bg:#f3f6f8;--surface:#fff;--ink:#14202b;--muted:#5d6b78;--line:#dbe2e8;--accent:#1d4ed8;--accent-soft:#e6edfd;--on-accent:#fff}
 @media (prefers-color-scheme:dark){:root{--bg:#0e151b;--surface:#16212a;--ink:#e8eef3;--muted:#93a2af;--line:#26343f}}
@@ -22,6 +39,22 @@ header p{margin:0;color:var(--muted)}
 .tab[aria-pressed=true] i{background:var(--on)}
 .tab small{opacity:.7}
 main{max-width:1200px;margin:auto;padding:0 20px}
+.wrap{max-width:1200px;margin:auto;padding:12px 20px 0;display:grid;grid-template-columns:240px 1fr;gap:24px;align-items:start}
+.wrap main{padding:0;max-width:none;margin:0;min-width:0}
+aside{position:sticky;top:16px}
+aside h2{font:700 20px Fraunces,Georgia,serif;margin:0 0 4px}
+.fh{display:flex;justify-content:space-between;align-items:baseline;margin:6px 0 10px;color:var(--muted);font-size:13px}
+.link{background:none;border:0;color:var(--accent);font:600 13px Inter,sans-serif;text-decoration:underline;cursor:pointer;padding:0}
+.frow{display:flex;align-items:center;gap:10px;padding:9px 12px;margin-bottom:6px;background:var(--surface);border:1.5px solid var(--line);border-left:5px solid var(--c);border-radius:10px;cursor:pointer;font-weight:500;font-size:14px}
+.frow input{width:16px;height:16px;margin:0;accent-color:#fff}
+.frow b{flex:1;font-weight:500;overflow-wrap:anywhere}.frow small{opacity:.7}
+.frow.on{background:var(--d);border-color:var(--d);border-left-color:#fff;color:#fff}
+.fbtn{display:none;width:100%;margin-bottom:10px;padding:10px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:600 14px Inter,sans-serif}
+.chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 6px;min-height:28px}
+.chip{display:flex;gap:6px;align-items:center;background:var(--d);color:#fff;border:0;border-radius:999px;padding:4px 6px 4px 12px;font:600 13px Inter,sans-serif;cursor:pointer}
+.chip i{font-style:normal;background:rgba(255,255,255,.25);border-radius:50%;width:18px;height:18px;display:grid;place-items:center}
+.rc{color:var(--muted);font-size:13px}
+@media(max-width:800px){.wrap{grid-template-columns:1fr}aside{position:static}.fbtn{display:block}aside .panel{display:none}aside.open .panel{display:block}}
 .lot{margin:8px 0 36px;--c:var(--accent)}
 .lot-head{border-left:6px solid var(--c);padding:6px 0 6px 14px;margin:12px 0 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .lot-head h2{font:700 24px Fraunces,Georgia,serif;margin:0}
@@ -33,6 +66,10 @@ main{max-width:1200px;margin:auto;padding:0 20px}
 .ph{aspect-ratio:1;background:var(--bg);cursor:zoom-in;position:relative}
 .ph img,.ph video{width:100%;height:100%;object-fit:cover;display:block}
 .ph video{pointer-events:none;background:#000}
+.card.sold .ph img,.card.sold .ph video{filter:grayscale(1);opacity:.45}
+.soldtag{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.soldtag span{background:#b91c1c;color:#fff;font-weight:700;letter-spacing:.08em;padding:4px 14px;border-radius:6px;transform:rotate(-12deg);font-size:14px}
+.btn:disabled{opacity:.5;cursor:not-allowed;background:transparent!important;color:var(--muted)!important;border-color:var(--line)!important}
 .play{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:600;pointer-events:none}
 #lb video{width:100%;max-height:75vh;display:block;background:#000}
 .err{display:flex;height:100%;align-items:center;justify-content:center;text-align:center;padding:10px;font-size:12px;color:var(--muted);cursor:default}
@@ -42,6 +79,21 @@ main{max-width:1200px;margin:auto;padding:0 20px}
 .card.sel .btn,.btn.fill{background:var(--c,var(--accent));color:var(--on,#fff)}
 .btn.ghost{border-color:var(--line);color:var(--ink)}
 :focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
+#fab{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:none;align-items:center;gap:10px;padding:14px 26px;border:0;border-radius:999px;background:#1b2f4b;color:#fff;font:600 20px "Barlow Condensed","Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.06em;box-shadow:0 8px 24px rgba(0,0,0,.3);cursor:pointer;z-index:20;white-space:nowrap}
+#fab span{background:#fff;color:#1b2f4b;border-radius:999px;min-width:28px;height:28px;display:grid;place-items:center;font:700 16px Inter,sans-serif;padding:0 6px}
+#fab span.pop{animation:pop .4s}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.5)}100%{transform:scale(1)}}
+#ml h3{margin:0;font:700 32px "Barlow Condensed","Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.04em;color:#1b2f4b;display:flex;justify-content:space-between;align-items:baseline}
+@media (prefers-color-scheme:dark){#ml h3{color:var(--ink)}}
+#ml h3 small{font:500 14px Inter,sans-serif;color:var(--muted);text-transform:none;letter-spacing:0}
+.mlist{display:grid;gap:8px;max-height:52vh;overflow:auto}
+.li{display:flex;gap:12px;align-items:center;border-left:5px solid var(--c);background:var(--bg);border-radius:8px;padding:6px 10px 6px 6px}
+.li .th{width:62px;height:46px;border-radius:6px;object-fit:cover;background:#000;flex:none}
+.li div{flex:1;min-width:0}.li b{display:block}.li span{color:var(--muted);font-size:13px}
+.li button{border:0;background:none;color:var(--muted);font-size:22px;cursor:pointer;padding:4px 8px}
+.macts .pri{background:#1b2f4b;border-color:#1b2f4b;color:#fff;font-size:16px}
+@media (prefers-color-scheme:dark){.macts .pri{background:#3b5b86;border-color:#3b5b86}}
+.macts{display:flex;gap:8px}.macts button{flex:1;padding:11px;border-radius:8px;border:1.5px solid var(--line);background:transparent;color:var(--ink);font:600 14px Inter,sans-serif;cursor:pointer}
 .bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:10px;z-index:10}
 .bar b{font-size:16px}
 dialog{border:0;border-radius:14px;padding:0;background:var(--surface);color:var(--ink);width:min(560px,94vw);max-height:90vh}
@@ -64,26 +116,26 @@ textarea{min-height:170px;font-family:ui-monospace,monospace}
   <h1>Ornamental Fish Export Catalog</h1>
   <p>Tap a photo or video to open it. Press Select on the fish you like, then copy your order list and send it to us.</p>
 </header>
-<nav class="tabs" id="tabs" aria-label="Categories"></nav>
+<div class="wrap">
+<aside id="aside" style="visibility:hidden">
+  <button class="fbtn" id="fbtn"></button>
+  <div class="panel">
+    <h2>Filter by</h2>
+    <div class="fh"><span>Categories</span><button class="link" id="fclr">Clear</button></div>
+    <div id="rows"></div>
+    <div class="fh" style="margin-top:14px"><span>Search</span></div>
+    <input type="search" id="q" placeholder="e.g. H12" aria-label="Search" style="width:100%;padding:9px 11px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:14px Inter,sans-serif">
+  </div>
+</aside>
 <main id="main"><p class="msg">Loading catalog…</p></main>
-
-<div class="bar">
-  <span><b id="selCount">0</b> fish selected</span>
-  <span class="row" style="flex:none">
-    <button class="btn ghost" id="clearBtn">Clear</button>
-    <button class="btn fill" id="reviewBtn">View order list</button>
-  </span>
 </div>
+
+<button id="fab" aria-label="View my list">View my list <span id="fn">0</span></button>
 <div id="toast"></div>
 
 <dialog id="lb"><img id="lbImg" alt=""><video id="lbVid" controls playsinline hidden></video><div class="lbbar"><span id="lbCap"></span><span class="row" style="flex:none"><button class="btn fill" id="lbSel">Select</button><button class="btn ghost" style="color:#fff" id="lbClose">Close</button></span></div></dialog>
 
-<dialog id="order"><div class="dlg">
-  <h3>Your order list</h3>
-  <div id="sumBody"></div>
-  <textarea id="orderText" readonly aria-label="Order text"></textarea>
-  <div class="row"><button class="btn fill" id="copyOrder">Copy Order List</button><button class="btn ghost" id="clearBtn2">Clear all</button><button class="btn ghost" data-close>Close</button></div>
-</div></dialog>
+<dialog id="ml"><div class="dlg"><h3><span>My list</span><small id="mn"></small></h3><div class="mlist" id="mlist"></div><div class="macts"><button class="pri" id="mcopy">Copy list</button></div><div class="macts"><button id="mclr">Clear all</button><button id="mx">Close</button></div></div></dialog>
 
 <script>
 /* ================= SETTINGS (ไม่ต้องแก้ก็ใช้ได้) =================
@@ -104,7 +156,12 @@ const nat=(a,b)=>a.localeCompare(b,undefined,{numeric:true,sensitivity:"base"});
 const code=n=>String(n); // รหัส = ชื่อไฟล์ (ไม่รวมนามสกุล)
 const hash=t=>{let h=0;for(const c of t)h=(h*31+c.charCodeAt(0))>>>0;return h};
 const sel=new Map(); // folder -> Set of codes
-let CATALOG=[], active="ALL";
+let CATALOG=[], active="ALL", SOLD=new Set();
+/* รายชื่อปลาที่ขายแล้วอยู่ในไฟล์ sold.txt (บรรทัดละ 1 รหัส) */
+async function loadSold(){
+  try{const r=await fetch("sold.txt?t="+Date.now(),{cache:"no-store"});if(!r.ok)return;
+    (await r.text()).split(/[\n,]/).forEach(x=>{x=x.replace(/#.*/,"").trim().toLowerCase();if(x)SOLD.add(x)})}catch(e){}}
+const isSold=(l,it)=>SOLD.has(String(it.n).toLowerCase())||SOLD.has((l.folder+"/"+it.n).toLowerCase());
 
 function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),1600)}
 function isSel(f,n){return sel.has(f)&&sel.get(f).has(n)}
@@ -155,27 +212,43 @@ function buildCatalog(tree){
 const showBadge=l=>l.title!==l.folder;
 const src=(l,it)=>encodeURI(`${l.folder}/${it.file}`);
 const lotBy=f=>CATALOG.find(l=>l.folder===f);
+const selCats=new Set();let query="";
+const dark=h=>{if(!/^#[0-9a-f]{6}$/i.test(h))return h;const n=parseInt(h.slice(1),16);return `rgb(${Math.round((n>>16&255)*.68)},${Math.round((n>>8&255)*.68)},${Math.round((n&255)*.68)})`};
+function setUrl(){try{const u=new URL(location.href);selCats.size?u.searchParams.set("lot",[...selCats].join(",")):u.searchParams.delete("lot");history.replaceState(null,"",u)}catch(e){}}
 function render(){
-  const tabs=$("#tabs");tabs.innerHTML="";
-  const mk=(key,label,color,on,count)=>{
-    const b=document.createElement("button");b.className="tab";b.setAttribute("aria-pressed",active===key);
-    b.style.setProperty("--c",color);b.style.setProperty("--on",on);
-    b.innerHTML=`<i></i>${label} <small>${count}</small>`;
-    b.onclick=()=>{active=key;render();scrollTo(0,0);try{const u=new URL(location.href);key==="ALL"?u.searchParams.delete("lot"):u.searchParams.set("lot",key);history.replaceState(null,"",u)}catch(e){}};
-    tabs.appendChild(b)};
-  mk("ALL","All","var(--ink)","var(--bg)",CATALOG.reduce((a,l)=>a+l.items.length,0));
-  CATALOG.forEach(l=>mk(l.folder,l.title,l.color,"#fff",l.items.length));
+  $("#aside").style.visibility="visible";
+  const rows=$("#rows");rows.innerHTML="";
+  CATALOG.forEach(l=>{const on=selCats.has(l.folder);const r=document.createElement("label");r.className="frow"+(on?" on":"");
+    r.style.cssText=`--c:${l.color};--d:${dark(l.color)}`;
+    const cb=document.createElement("input");cb.type="checkbox";cb.checked=on;
+    const b=document.createElement("b");b.textContent=l.title;const sm=document.createElement("small");sm.textContent=l.items.length;
+    cb.onchange=()=>{on?selCats.delete(l.folder):selCats.add(l.folder);setUrl();render()};
+    r.append(cb,b,sm);rows.appendChild(r)});
+  const lots=CATALOG.filter(l=>!selCats.size||selCats.has(l.folder));
+  const q=query.toLowerCase();
+  const shown=lots.map(l=>({l,items:q?l.items.filter(it=>(String(it.n)+" "+l.title+" "+l.folder).toLowerCase().includes(q)):l.items})).filter(x=>x.items.length);
+  const total=shown.reduce((a,x)=>a+x.items.length,0),n=selCats.size;
+  $("#fbtn").textContent="Filters"+(n?` (${n})`:"");
   const main=$("#main");main.innerHTML="";
-  CATALOG.filter(l=>active==="ALL"||l.folder===active).forEach(l=>{
+  const ch=document.createElement("div");ch.className="chips";
+  CATALOG.filter(l=>selCats.has(l.folder)).forEach(l=>{const b=document.createElement("button");b.className="chip";b.style.setProperty("--d",dark(l.color));b.setAttribute("aria-label","Remove "+l.title);
+    b.append(l.title);const x=document.createElement("i");x.textContent="×";b.appendChild(x);b.onclick=()=>{selCats.delete(l.folder);setUrl();render()};ch.appendChild(b)});
+  const rc=document.createElement("span");rc.className="rc";rc.textContent=`${total} fish`+(n?` in ${n} categor${n>1?"ies":"y"}`:"");ch.appendChild(rc);
+  main.appendChild(ch);
+  if(!total){const e=document.createElement("p");e.className="msg";e.textContent="No fish match your filters.";main.appendChild(e)}
+  shown.forEach(({l,items})=>{
     const sec=document.createElement("section");sec.className="lot";
     sec.style.setProperty("--c",l.color);sec.style.setProperty("--on","#fff");
-    sec.innerHTML=`<div class="lot-head">${showBadge(l)?`<span class="badge">${l.folder}</span>`:""}<h2></h2><span class="n">${l.items.length} fish</span></div><div class="grid"></div>`;
+    sec.innerHTML=`<div class="lot-head">${showBadge(l)?`<span class="badge">${l.folder}</span>`:""}<h2></h2><span class="n">${items.length} fish</span></div><div class="grid"></div>`;
     sec.querySelector("h2").textContent=l.title;
     const g=sec.querySelector(".grid");
-    l.items.forEach(it=>g.appendChild(card(l,it)));
+    items.forEach(it=>g.appendChild(card(l,it)));
     main.appendChild(sec)});
   updateBar();
 }
+$("#q").oninput=e=>{query=e.target.value.trim();render()};
+$("#fclr").onclick=()=>{selCats.clear();setUrl();render()};
+$("#fbtn").onclick=()=>$("#aside").classList.toggle("open");
 const vidObs=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){const v=e.target;v.preload="metadata";v.src=v.dataset.src;vidObs.unobserve(v)}}),{rootMargin:"300px"});
 function card(l,it){
   const n=it.n,c=document.createElement("div");c.className="card"+(isSel(l.folder,n)?" sel":"");
@@ -192,10 +265,13 @@ function card(l,it){
     ph.appendChild(img);
   }
   ph.onclick=()=>openLb(l,it);
+  const sold=isSold(l,it);
+  if(sold){c.classList.add("sold");const t=document.createElement("div");t.className="soldtag";t.innerHTML="<span>SOLD OUT</span>";ph.appendChild(t)}
   const m=document.createElement("div");m.className="meta";
   m.innerHTML=`<span class="code">${code(n)}</span>`;
   const b=document.createElement("button");b.className="btn";b.textContent=isSel(l.folder,n)?"Selected ✓":"Select";
   b.setAttribute("aria-pressed",isSel(l.folder,n));
+  if(sold){b.textContent="Sold out";b.disabled=true}
   b.onclick=()=>{toggle(l.folder,n);const on=isSel(l.folder,n);c.classList.toggle("sel",on);b.textContent=on?"Selected ✓":"Select";b.setAttribute("aria-pressed",on)};
   m.appendChild(b);c.append(ph,m);return c}
 function toggle(f,n){
@@ -203,57 +279,66 @@ function toggle(f,n){
   const s=sel.get(f);s.has(n)?s.delete(n):s.add(n);
   if(!s.size)sel.delete(f);updateBar()}
 function total(){let t=0;sel.forEach(s=>t+=s.size);return t}
-function updateBar(){$("#selCount").textContent=total()}
-function orderText(){
-  const lines=[];
-  CATALOG.forEach(l=>{if(sel.has(l.folder)){const ns=[...sel.get(l.folder)].sort(nat);lines.push(`${showBadge(l)?`${l.title} (${l.folder})`:l.title}: ${ns.map(code).join(", ")}`)}});
-  return lines.length?`Order inquiry — ${total()} fish\n\n${lines.join("\n")}`:""}
-function clearAll(){sel.clear();render();$("#order").close();toast("Selection cleared")}
+function updateBar(){
+  const n=total(),f=$("#fab"),c=$("#fn");f.style.display=n?"flex":"none";
+  if(c.textContent!=n){c.textContent=n;c.classList.remove("pop");void c.offsetWidth;c.classList.add("pop")}
+  if($("#ml").open)buildList()}
+function syncCard(f,n){const c=document.querySelector(`.card[data-f="${CSS.escape(f)}"][data-n="${CSS.escape(String(n))}"]`);
+  if(c){const on=isSel(f,n);c.classList.toggle("sel",on);const b=c.querySelector(".btn");b.textContent=on?"Selected ✓":"Select";b.setAttribute("aria-pressed",on)}}
+function clearAll(){const keys=[];sel.forEach((v,f)=>v.forEach(n=>keys.push([f,n])));sel.clear();keys.forEach(([f,n])=>syncCard(f,n));updateBar();if($("#ml").open)$("#ml").close()}
 
 /* Lightbox */
 let lbCur=null;
-function openLb(l,it){lbCur={l,n:it.n};
+function openLb(l,it){lbCur={l,n:it.n,sold:isSold(l,it)};
   const im=$("#lbImg"),vd=$("#lbVid");
   if(it.video){im.hidden=true;vd.hidden=false;vd.src=src(l,it);vd.play().catch(()=>{})}
   else{vd.hidden=true;im.hidden=false;im.src=src(l,it)}
   $("#lbCap").textContent=`${l.title} ${code(it.n)}`;syncLb();$("#lb").showModal()}
-function syncLb(){const {l,n}=lbCur;const b=$("#lbSel");b.textContent=isSel(l.folder,n)?"Selected ✓":"Select";b.style.setProperty("--c",l.color)}
-$("#lbSel").onclick=()=>{toggle(lbCur.l.folder,lbCur.n);syncLb();
+function syncLb(){const {l,n}=lbCur;const b=$("#lbSel");const so=lbCur.sold;b.disabled=so;b.textContent=so?"Sold out":isSel(l.folder,n)?"Selected ✓":"Select";b.style.setProperty("--c",l.color)}
+$("#lbSel").onclick=()=>{if(lbCur.sold)return;toggle(lbCur.l.folder,lbCur.n);syncLb();
   const c=document.querySelector(`.card[data-f="${CSS.escape(lbCur.l.folder)}"][data-n="${CSS.escape(String(lbCur.n))}"]`);
   if(c){const on=isSel(lbCur.l.folder,lbCur.n);c.classList.toggle("sel",on);c.querySelector(".btn").textContent=on?"Selected ✓":"Select"}};
 $("#lbClose").onclick=()=>$("#lb").close();
 $("#lb").addEventListener("close",()=>{const v=$("#lbVid");v.pause();v.removeAttribute("src");v.load()});
 $("#lb").addEventListener("click",e=>{if(e.target.id==="lb")e.target.close()});
 
-/* Order dialog */
-$("#reviewBtn").onclick=()=>{
-  const body=$("#sumBody");body.innerHTML="";
-  if(!total())body.innerHTML="<p>No fish selected yet. Press Select on any photo.</p>";
-  CATALOG.forEach(l=>{if(sel.has(l.folder)){
-    const d=document.createElement("div");d.className="sum-lot";d.style.setProperty("--c",l.color);
-    const b=document.createElement("b");b.textContent=l.title;d.appendChild(b);
-    d.append(" ",document.createElement("br"),[...sel.get(l.folder)].sort(nat).map(code).join(", "));
-    body.appendChild(d)}});
-  $("#orderText").value=orderText();$("#order").showModal()};
-async function copy(t,msg){
-  try{await navigator.clipboard.writeText(t)}catch(e){const x=document.createElement("textarea");x.value=t;document.body.appendChild(x);x.select();document.execCommand("copy");x.remove()}
-  toast(msg)}
-$("#copyOrder").onclick=()=>total()?copy($("#orderText").value,"Order list copied"):toast("Nothing selected");
-$("#clearBtn").onclick=()=>total()&&confirm("Clear all selected fish?")&&clearAll();
-$("#clearBtn2").onclick=clearAll;
-document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>b.closest("dialog").close());
+/* My list popup */
+function buildList(){
+  const l=$("#mlist");l.innerHTML="";let cnt=0;
+  CATALOG.forEach(lot=>{if(!sel.has(lot.folder))return;
+    [...sel.get(lot.folder)].sort(nat).forEach(n=>{const it=lot.items.find(x=>x.n===n);if(!it)return;cnt++;
+      const d=document.createElement("div");d.className="li";d.style.setProperty("--c",lot.color);
+      let th;if(it.video){th=document.createElement("video");th.muted=true;th.preload="metadata";th.src=src(lot,it)+"#t=0.1"}else{th=new Image();th.alt="";th.src=src(lot,it)}
+      th.className="th";
+      const t=document.createElement("div"),b=document.createElement("b"),sp=document.createElement("span");
+      b.textContent=code(n);sp.textContent=lot.title;t.append(b,sp);
+      const x=document.createElement("button");x.textContent="×";x.setAttribute("aria-label","Remove "+code(n));
+      x.onclick=()=>{toggle(lot.folder,n);syncCard(lot.folder,n);if(!total())$("#ml").close()};
+      d.append(th,t,x);l.appendChild(d)})});
+  $("#mn").textContent=cnt+" selected"}
+function orderText(){
+  const lines=[];
+  CATALOG.forEach(l=>{if(sel.has(l.folder)){const ns=[...sel.get(l.folder)].sort(nat);lines.push(`${showBadge(l)?`${l.title} (${l.folder})`:l.title}: ${ns.map(code).join(", ")}`)}});
+  return lines.length?`Order inquiry — ${total()} fish\n\n${lines.join("\n")}`:""}
+async function copy(t){
+  try{await navigator.clipboard.writeText(t)}catch(e){const x=document.createElement("textarea");x.value=t;document.body.appendChild(x);x.select();document.execCommand("copy");x.remove()}}
+$("#mcopy").onclick=async()=>{const t=orderText();if(!t)return toast("Nothing selected");
+  await copy(t);const b=$("#mcopy");b.textContent="Copied ✓";toast("Order list copied");setTimeout(()=>b.textContent="Copy list",1800)};
+$("#fab").onclick=()=>{buildList();$("#ml").showModal()};
+$("#mx").onclick=()=>$("#ml").close();
+$("#mclr").onclick=clearAll;
+$("#ml").addEventListener("click",e=>{if(e.target.id==="ml")e.target.close()});
 
 /* ---------- เริ่มทำงาน ---------- */
 (async()=>{
   const main=$("#main"),repo=detectRepo();
   const fail=t=>{main.innerHTML=`<p class="msg">${t}</p>`};
   if(!repo)return fail("Catalog can’t load here. Open it from your GitHub Pages address (username.github.io/repo), or set GITHUB_REPO in index.html.");
-  try{CATALOG=buildCatalog(await fetchTree(repo))}
+  try{await loadSold();CATALOG=buildCatalog(await fetchTree(repo))}
   catch(e){return fail(e.message==="RATE"?"GitHub is limiting requests right now. Please try again in a few minutes.":"Couldn’t read the catalog from GitHub. Check that the repository is public.")}
   if(!CATALOG.length)return fail("No photo folders found yet. Add folders with images to the repository.");
   const want=new URLSearchParams(location.search).get("lot");
-  const m=want&&CATALOG.find(l=>l.folder.toLowerCase()===want.toLowerCase());
-  if(m)active=m.folder;
+  if(want)want.split(",").forEach(w=>{const m=CATALOG.find(l=>l.folder.toLowerCase()===w.trim().toLowerCase());if(m)selCats.add(m.folder)});
   render()})();
 </script>
 </body>
